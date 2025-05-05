@@ -5,6 +5,8 @@ def extract(file_json, file_extract):
     with open(file_json, "r", encoding="utf-8") as f:
         data = json.load(f)
 
+    folder_name = os.path.splitext(file_json)[0] 
+    folder_name = folder_name[3:]
     extracted_text = {}
     index = 0
 
@@ -18,6 +20,9 @@ def extract(file_json, file_extract):
                     if texto.strip():
                         extracted_text[str(index)] = texto
                         index += 1
+
+    os.makedirs(folder_name, exist_ok=True)
+    file_extract = os.path.join(folder_name, os.path.basename(file_extract))
 
     with open(file_extract, "w", encoding="utf-8") as f:
         json.dump(extracted_text, f, ensure_ascii=False, indent=2)
@@ -51,14 +56,14 @@ def insert(file_json_original, file_translated, file_extract):
 
     print(f"{changed} falas traduzidas inseridas no arquivo '{file_extract}'.")
 
-#TODO: Criar uma forma de exportar o texto de todos os arquivos (Loop + OS para criar as pastas)
 def main():
     mode = input("Digite '1' para exportar ou '2' para reinserir o texto: ").strip().lower()
 
     if mode == "1":
-        map_file = input("Arquivo de mapa original (.json) [ex: Map001.json]: ").strip()
-        output = 'dialogos_' + map_file
-        extract(map_file, output)
+        map_files = [f for f in os.listdir() if f.startswith("Map") and f.endswith(".json")]
+        for map_file in map_files:
+            output = 'dialogos_' + map_file
+            extract(map_file, output)
 
     elif mode == "2":
         map_file = input("Arquivo de map original (.json) [ex: Map001.json]: ").strip()
