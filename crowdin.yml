@@ -7,6 +7,11 @@
 "files": [
   {
     "source": "Translation/**/*.json",
-    "translation": "Translation/%original_path%/%two_letters_code%_%original_file_name%"
+    "translation": "Translation/%original_path%/%two_letters_code%_%original_file_name%",
+    "ignore": [
+      "Translation/001/*.json",
+      "Translation/002/*.json",
+      "Translation/004/*.json"
+    ]
   }
 ]
