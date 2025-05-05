@@ -8,10 +8,5 @@
   {
     "source": "Translation/**/*.json",
     "translation": "Translation/%original_path%/%two_letters_code%_%original_file_name%",
-    "ignore": [
-      "Translation/001/",
-      "Translation/002/",
-      "Translation/004/"
-    ],
-  },
+  }
 ]
